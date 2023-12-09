@@ -10,7 +10,7 @@ class Board
 {
 public:
 	Board() = default;
-	Board(Vei2 _startLoc, Vei2 _pixelDim, Vei2 _boardDim);
+	Board(Vei2 _startLoc, Vei2 _boardDim);
 	Board& operator= (const Board& other) = delete;
 	~Board();
 public:

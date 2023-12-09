@@ -27,7 +27,6 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	board(
 		Vei2(100,100),
-		Vei2(300, 400), 
 		Vei2(10,10)
 	)
 {
@@ -47,4 +46,5 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	board.Draw(gfx);
 }

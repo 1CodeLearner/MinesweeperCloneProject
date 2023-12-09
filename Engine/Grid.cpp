@@ -1,9 +1,9 @@
 #include "Grid.h"
+#include "SpriteCodex.h"
 
-Grid::Grid(Vei2 _pixelDim, Vei2 _indexLoc)
+Grid::Grid(Vei2 _indexLoc)
 	: indexLoc(_indexLoc)
 {
-	pixelDim = _pixelDim;
 }
 
 EGameState Grid::Click()
@@ -11,23 +11,19 @@ EGameState Grid::Click()
 	return EGameState();
 }
 
-Vei2 Grid::GetPixelDim()
-{
-	return pixelDim;
-}
-
 void Grid::CheckBombsAround()
 {
 }
 
-bool Grid::CanClick()
+bool Grid::CanClick() const
 {
 	return false;
 }
 
 void Grid::Draw(Vei2 offset, Graphics& gfx)
 {
-	
-}
+	Vei2 drawLoc(SpriteCodex::tileSize * indexLoc.x,
+		SpriteCodex::tileSize * indexLoc.y);
 
-Vei2 Grid::pixelDim;
+	SpriteCodex::DrawTile0(offset + drawLoc, gfx);
+}

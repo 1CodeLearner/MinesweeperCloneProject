@@ -21,16 +21,14 @@ protected:
 
 public:
 	Grid() = default;;
-	Grid(Vei2 _pixelDim, Vei2 indexLoc);
+	Grid(Vei2 indexLoc);
 public:
-	bool CanClick();
+	bool CanClick() const;
 	void Draw(Vei2 offset,Graphics& gfx);
 	EGameState Click();
-	static Vei2 GetPixelDim();
 private:
 	void CheckBombsAround();
 private:
-	static Vei2 pixelDim;
 	Vei2 indexLoc;
 	int nBombsAround = 0;
 	EInputState EInputS = EInputState::IS_NOTCLICKED;

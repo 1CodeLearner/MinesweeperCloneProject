@@ -1,7 +1,7 @@
 #include "Board.h"
 
-Board::Board(Vei2 _startLoc, Vei2 _pixelDim, Vei2 _boardDim)
-	: startLoc(_startLoc), pixelDim(_pixelDim), boardDim(_boardDim)
+Board::Board(Vei2 _startLoc, Vei2 _boardDim)
+	: startLoc(_startLoc), boardDim(_boardDim)
 {
 	grids = new Grid*[_boardDim.x * _boardDim.y];
 
@@ -9,10 +9,7 @@ Board::Board(Vei2 _startLoc, Vei2 _pixelDim, Vei2 _boardDim)
 	{
 		for (int j = 0; j < boardDim.x; j++)
 		{
-			grids[j * boardDim.y + i] = new Grid(
-				Vei2(_pixelDim.x / boardDim.x,
-					_pixelDim.y / boardDim.y),
-				Vei2(j,i));
+			grids[j * boardDim.y + i] = new Grid(Vei2(j,i));
 		}
 	}
 }
