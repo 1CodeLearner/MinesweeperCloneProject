@@ -24,7 +24,12 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	board(
+		Vei2(100,100),
+		Vei2(300, 400), 
+		Vei2(10,10)
+	)
 {
 }
 
