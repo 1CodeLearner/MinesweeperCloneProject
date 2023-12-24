@@ -6,17 +6,58 @@ Grid::Grid(Vei2 _indexLoc)
 {
 }
 
-EGameState Grid::Click()
+void Grid::SetState(int nBomb)
 {
-	return EGameState();
 }
 
-void Grid::CheckBombsAround()
+void Grid::SetFlag()
 {
+	switch (EFlag)
+	{
+	case EFlagState::FLAGGED:
+	{
+		EFlag = EFlagState::NOTFLAGGED;
+		break;
+	}
+	case EFlagState::NOTFLAGGED:
+		EFlag = EFlagState::FLAGGED;
+		break;
+	}
+}
+
+EGameState Grid::Reveal()
+{
+	EReveal = ERevealState::REVEALED;
+
+	switch (EGrid)
+	{
+	case EGridState::EMPTY:
+	{
+		return EGameState::PLAYING;
+	}
+	case EGridState::BOMB:
+	{
+		return EGameState::GAMEOVER;
+	}
+	}
+
+	return EGameState::NONE;
 }
 
 bool Grid::CanClick() const
 {
+	switch (EReveal)
+	{
+	case ERevealState::NOTREVEALED:
+	{
+		return true;
+	}
+	case ERevealState::REVEALED:
+	{
+		return false;
+	}
+	}
+
 	return false;
 }
 
@@ -26,6 +67,38 @@ void Grid::Draw(Vei2 offset, Graphics& gfx)
 		SpriteCodex::tileSize * indexLoc.y);
 
 	SpriteCodex::DrawTile0(offset + drawLoc, gfx);
-	SpriteCodex::DrawTileButton(offset + drawLoc, gfx);
+
+	switch (EReveal)
+	{
+	case ERevealState::NOTREVEALED:
+	{
+		if (EFlag == EFlagState::FLAGGED)
+		{
+			SpriteCodex::DrawTileFlag(offset + drawLoc, gfx);
+		}
+		
+		SpriteCodex::DrawTileButton(offset + drawLoc, gfx);
+	}
+	case ERevealState::REVEALED:
+	{
+		switch (EGrid)
+		{
+		case EGridState::EMPTY:
+		{
+			break;
+		}
+		case EGridState::BOMB:
+		{
+			SpriteCodex::DrawTileBomb(offset + drawLoc, gfx);
+			break;
+		}
+		}
+		break;
+	}
+}
+
+
+
 
 }
+

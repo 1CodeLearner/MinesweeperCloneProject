@@ -6,32 +6,38 @@
 class Grid
 {
 protected:
-	enum class EInputState
+	enum class ERevealState
 	{
-		IS_NOTCLICKED,
-		IS_CLICKED
+		REVEALED,
+		NOTREVEALED
 	};
-
+	enum class EFlagState
+	{
+		FLAGGED,
+		NOTFLAGGED
+	};
 	enum class EGridState
 	{
-		GS_EMPTY,
-		GS_FLAG,
-		GS_BOMB
+		EMPTY,
+		BOMB
 	};
 
 public:
 	Grid() = default;
 	Grid(Vei2 indexLoc);
-public:
+
+	void Draw(Vei2 offset, Graphics& gfx);
+	void SetState(int nBombs = 0);
+	void SetFlag();
+	EGameState Reveal();
 	bool CanClick() const;
-	void Draw(Vei2 offset,Graphics& gfx);
-	EGameState Click();
 private:
-	void CheckBombsAround();
-private:
+
+
 	Vei2 indexLoc;
 	int nBombsAround = 0;
-	EInputState EInputS = EInputState::IS_NOTCLICKED;
-	EGridState EGridS = EGridState::GS_EMPTY;
+	ERevealState EReveal = ERevealState::NOTREVEALED;
+	EFlagState EFlag = EFlagState::NOTFLAGGED;
+	EGridState EGrid = EGridState::EMPTY;
 };
 

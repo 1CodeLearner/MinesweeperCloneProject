@@ -15,12 +15,14 @@ public:
 	~Board();
 public:
 	void Draw(Graphics& gfx);
-	void ProcessInput(Mouse& mouse);
+	EGameState ProcessInput(Mouse& mouse);
 private:
 	RectI GetRect() const;
+	Grid* GetSelectedGrid(Mouse& mouse) const;
 private:
 	Vei2 startLoc;
 	Vei2 endLoc;
 	Vei2 boardDim;
 	Grid** grids;
+	bool* bombGrids;
 };

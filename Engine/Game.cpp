@@ -42,7 +42,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	board.ProcessInput(wnd.mouse);
+	EGameState state =  board.ProcessInput(wnd.mouse);
 
 }
 
