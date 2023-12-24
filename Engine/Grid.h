@@ -20,7 +20,7 @@ protected:
 	};
 
 public:
-	Grid() = default;;
+	Grid() = default;
 	Grid(Vei2 indexLoc);
 public:
 	bool CanClick() const;
