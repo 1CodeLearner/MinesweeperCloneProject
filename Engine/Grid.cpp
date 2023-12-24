@@ -26,4 +26,6 @@ void Grid::Draw(Vei2 offset, Graphics& gfx)
 		SpriteCodex::tileSize * indexLoc.y);
 
 	SpriteCodex::DrawTile0(offset + drawLoc, gfx);
+	SpriteCodex::DrawTileButton(offset + drawLoc, gfx);
+
 }

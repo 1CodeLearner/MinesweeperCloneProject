@@ -20,7 +20,6 @@ private:
 	RectI GetRect() const;
 private:
 	Vei2 startLoc;
-	Vei2 pixelDim;
 	Vei2 boardDim;
 	Grid** grids;
 };
