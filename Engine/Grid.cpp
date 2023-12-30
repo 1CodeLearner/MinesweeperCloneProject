@@ -10,6 +10,11 @@ void Grid::SetState(int nBomb)
 {
 }
 
+bool Grid::HasFlag() const
+{
+	return 	EFlag == EFlagState::FLAGGED;
+}
+
 void Grid::SetFlag()
 {
 	switch (EFlag)
@@ -76,8 +81,9 @@ void Grid::Draw(Vei2 offset, Graphics& gfx)
 		{
 			SpriteCodex::DrawTileFlag(offset + drawLoc, gfx);
 		}
-		
+
 		SpriteCodex::DrawTileButton(offset + drawLoc, gfx);
+		break;
 	}
 	case ERevealState::REVEALED:
 	{
@@ -95,7 +101,7 @@ void Grid::Draw(Vei2 offset, Graphics& gfx)
 		}
 		break;
 	}
-}
+	}
 
 
 

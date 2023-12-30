@@ -5,6 +5,7 @@
 
 class Grid
 {
+	friend class Board;
 protected:
 	enum class ERevealState
 	{
@@ -28,6 +29,7 @@ public:
 
 	void Draw(Vei2 offset, Graphics& gfx);
 	void SetState(int nBombs = 0);
+	bool HasFlag() const;
 	void SetFlag();
 	EGameState Reveal();
 	bool CanClick() const;

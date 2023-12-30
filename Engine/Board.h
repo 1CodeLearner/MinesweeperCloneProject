@@ -1,10 +1,9 @@
 #pragma once
 #include "Vei2.h"
-#include "Mouse.h"
 #include "Graphics.h"
 #include "Grid.h"
 #include "RectI.h"
-
+#include "UserInput.h"
 
 class Board
 {
@@ -15,14 +14,16 @@ public:
 	~Board();
 public:
 	void Draw(Graphics& gfx);
-	EGameState ProcessInput(Mouse& mouse);
+	EGameState ProcessInput(const UserInput& input);
+	void SetBombs(const int nBombs = 0);
 private:
 	RectI GetRect() const;
-	Grid* GetSelectedGrid(Mouse& mouse) const;
+	Grid* GetSelectedGrid(const Vei2& mouseLoc) const;
 private:
 	Vei2 startLoc;
 	Vei2 endLoc;
 	Vei2 boardDim;
+
 	Grid** grids;
-	bool* bombGrids;
+	//bool* bombGrids;
 };

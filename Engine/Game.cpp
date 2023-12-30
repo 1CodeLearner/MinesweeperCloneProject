@@ -1,5 +1,5 @@
-/****************************************************************************************** 
- *	Chili DirectX Framework Version 16.07.20											  *	
+/******************************************************************************************
+ *	Chili DirectX Framework Version 16.07.20											  *
  *	Game.cpp																			  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
@@ -20,21 +20,24 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Board.h"
+#include "UserInput.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd ),
+	wnd(wnd),
+	gfx(wnd),
 	board(
-		Vei2(100,100),
-		Vei2(10,10)
+		Vei2(100, 100),
+		Vei2(10, 10)
 	)
 {
+	board.SetBombs(10);
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
+	gfx.BeginFrame();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -42,8 +45,52 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	EGameState state =  board.ProcessInput(wnd.mouse);
+	if (wnd.mouse.LeftIsPressed())
+	{
+		if (!userInput.isHoldingLeft)
+		{
+			auto loc = wnd.mouse.GetPos();
+			userInput.SetInput(EInputs::E_LEFTCLICK, Vei2{ loc.second, loc.first });
+			userInput.isHoldingLeft = true;
+		}
+		else
+		{
+		}
+	}
+	else userInput.isHoldingLeft = false;
 
+	if (wnd.mouse.RightIsPressed())
+	{
+		if (!userInput.isHoldingRight)
+		{
+			auto loc = wnd.mouse.GetPos();
+			userInput.SetInput(EInputs::E_RIGHTCLICK, Vei2{ loc.second, loc.first });
+			userInput.isHoldingRight = true;
+		}
+		else
+		{
+		}
+	}
+	else userInput.isHoldingRight = false;
+
+	EGameState state = board.ProcessInput(userInput);
+	switch (state)
+	{
+	case EGameState::NONE:
+	{
+		break;
+	}
+	case EGameState::PLAYING:
+	{
+		break;
+	}
+	case EGameState::GAMEOVER:
+	{
+		break;
+	}
+	}
+
+	userInput.ResetInput();
 }
 
 void Game::ComposeFrame()
