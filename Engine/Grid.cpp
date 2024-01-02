@@ -6,10 +6,6 @@ Grid::Grid(Vei2 _indexLoc)
 {
 }
 
-void Grid::SetState(int nBomb)
-{
-}
-
 bool Grid::HasFlag() const
 {
 	return 	EFlag == EFlagState::FLAGGED;
@@ -32,6 +28,8 @@ void Grid::SetFlag()
 
 EGameState Grid::Reveal()
 {
+	if (HasFlag()) return EGameState::NONE;
+
 	EReveal = ERevealState::REVEALED;
 
 	switch (EGrid)
@@ -47,6 +45,11 @@ EGameState Grid::Reveal()
 	}
 
 	return EGameState::NONE;
+}
+
+bool Grid::HasBomb() const
+{
+	return EGrid == EGridState::BOMB;
 }
 
 bool Grid::CanClick() const
@@ -91,6 +94,54 @@ void Grid::Draw(Vei2 offset, Graphics& gfx)
 		{
 		case EGridState::EMPTY:
 		{
+			switch (nBombsAround)
+			{
+			case 0:
+			{
+				SpriteCodex::DrawTile0(offset + drawLoc, gfx);
+				break;
+			}
+			case 1:
+			{
+				SpriteCodex::DrawTile1(offset + drawLoc, gfx);
+				break;
+			}
+			case 2:
+			{
+				SpriteCodex::DrawTile2(offset + drawLoc, gfx);
+				break;
+			}
+			case 3:
+			{
+				SpriteCodex::DrawTile3(offset + drawLoc, gfx);
+				break;
+			}
+			case 4:
+			{
+				SpriteCodex::DrawTile4(offset + drawLoc, gfx);
+				break;
+			}
+			case 5:
+			{
+				SpriteCodex::DrawTile5(offset + drawLoc, gfx);
+				break;
+			}
+			case 6:
+			{
+				SpriteCodex::DrawTile6(offset + drawLoc, gfx);
+				break;
+			}
+			case 7:
+			{
+				SpriteCodex::DrawTile7(offset + drawLoc, gfx);
+				break;
+			}
+			case 8:
+			{
+				SpriteCodex::DrawTile8(offset + drawLoc, gfx);
+				break;
+			}
+			}
 			break;
 		}
 		case EGridState::BOMB:
@@ -102,9 +153,5 @@ void Grid::Draw(Vei2 offset, Graphics& gfx)
 		break;
 	}
 	}
-
-
-
-
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Vei2.h"
+#include "SpriteCodex.h"
 
 enum class EInputs
 {
@@ -15,10 +16,10 @@ struct UserInput
 		inputType = EInputs::E_NONE;
 		mouseLoc = { 0,0 };
 	}
-	void SetInput(EInputs input, Vei2 mousePos)
+	void SetInput(EInputs input, Vei2 mouseLoc)
 	{
 		inputType = input;
-		mouseLoc = mousePos;
+		this->mouseLoc = mouseLoc;
 	}
 
 	bool isHoldingLeft = false;

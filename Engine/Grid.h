@@ -28,10 +28,10 @@ public:
 	Grid(Vei2 indexLoc);
 
 	void Draw(Vei2 offset, Graphics& gfx);
-	void SetState(int nBombs = 0);
 	bool HasFlag() const;
 	void SetFlag();
 	EGameState Reveal();
+	bool HasBomb() const;
 	bool CanClick() const;
 private:
 

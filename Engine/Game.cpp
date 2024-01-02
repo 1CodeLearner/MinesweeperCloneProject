@@ -82,6 +82,7 @@ void Game::UpdateModel()
 	}
 	case EGameState::PLAYING:
 	{
+		board.CheckBombsAround(Board::GetSelectedGridDim(userInput.mouseLoc));
 		break;
 	}
 	case EGameState::GAMEOVER:

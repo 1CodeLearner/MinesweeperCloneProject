@@ -3,14 +3,17 @@
 #include <random>
 #include <ctime>
 #include <assert.h>
+#include <vector>
 #include "Grid.h"
 #include "SpriteCodex.h"
 
 
 Board::Board(Vei2 _startLoc, Vei2 _boardDim)
-	: startLoc(_startLoc), boardDim(_boardDim)
 {
 	assert(_boardDim.x > 0 && _boardDim.y > 0);
+
+	startLoc = _startLoc;
+	boardDim = _boardDim;
 
 	grids = new Grid * [_boardDim.x * _boardDim.y];
 
@@ -100,6 +103,59 @@ void Board::SetBombs(int nBombs)
 	}
 }
 
+void Board::CheckBombsAround(const Vei2& centerLoc)
+{
+	int left = 1;
+	int right = 1;
+	int top = 1;
+	int bottom = 1;
+
+	if (centerLoc.x - 1 < 0)
+	{
+		left = 0;
+	}
+	if (centerLoc.x + 1 >= boardDim.x)
+	{
+		right = 0;
+	}
+	if (centerLoc.y - 1 < 0)
+	{
+		top = 0;
+	}
+	if (centerLoc.y + 1 >= boardDim.y)
+	{
+		bottom = 0;
+	}
+
+	std::vector<Vei2> emptyGridsLoc;
+	int totalCount = 0;
+	for (int i = centerLoc.y - top; i <= centerLoc.y + bottom; ++i)
+	{
+		for (int j = centerLoc.x - left; j <= centerLoc.x + right; ++j)
+		{
+			Grid* workingGrid = grids[i * boardDim.x + j];
+			if (!workingGrid->HasBomb())
+			{
+				emptyGridsLoc.emplace_back(j, i);
+			}
+			++totalCount;
+		}
+	}
+
+	if (emptyGridsLoc.size() == totalCount)
+	{
+		for (auto gridLoc : emptyGridsLoc)
+		{
+			//CheckBombsAround(gridLoc);
+			grids[gridLoc.y * boardDim.x + gridLoc.x]->Reveal();
+		}
+	}
+	else
+	{
+		int nBombs = totalCount - static_cast<int>(emptyGridsLoc.size());
+		grids[centerLoc.y * boardDim.x + centerLoc.x]->nBombsAround = nBombs;
+	}
+}
 
 RectI Board::GetRect() const
 {
@@ -110,10 +166,20 @@ Grid* Board::GetSelectedGrid(const Vei2& mouseLoc) const
 {
 	if (GetRect().IsOverlappingWith(RectI{ mouseLoc, mouseLoc }))
 	{
-		Vei2 deltaLoc = mouseLoc - startLoc;
-		Vei2 gridLoc = deltaLoc / SpriteCodex::tileSize;
+		Vei2 gridLoc = GetSelectedGridDim(mouseLoc);
 		return grids[gridLoc.y * boardDim.x + gridLoc.x];
 	}
 
 	return nullptr;
 }
+
+inline Vei2 Board::GetSelectedGridDim(const Vei2& mouseLoc)
+{
+	Vei2 deltaLoc = mouseLoc - startLoc;
+	return deltaLoc / SpriteCodex::tileSize;
+}
+
+
+Vei2 Board::startLoc = {0,0};
+Vei2 Board::endLoc = {0,0};
+Vei2 Board::boardDim = {0,0};
