@@ -30,7 +30,8 @@ Game::Game(MainWindow& wnd)
 	board(
 		Vei2(100, 100),
 		Vei2(10, 10)
-	)
+	),
+	gameState(EGameState::NONE)
 {
 	board.SetBombs(10);
 }
@@ -45,56 +46,74 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	if (wnd.mouse.LeftIsPressed())
+	if (gameState == EGameState::MAINMENU)
 	{
-		if (!userInput.isHoldingLeft)
-		{
-			auto loc = wnd.mouse.GetPos();
-			userInput.SetInput(EInputs::E_LEFTCLICK, Vei2{ loc.second, loc.first });
-			userInput.isHoldingLeft = true;
-		}
-		else
-		{
-		}
-	}
-	else userInput.isHoldingLeft = false;
 
-	if (wnd.mouse.RightIsPressed())
+	}
+	else if (gameState != EGameState::GAMEOVER)
 	{
-		if (!userInput.isHoldingRight)
+		if (wnd.mouse.LeftIsPressed())
 		{
-			auto loc = wnd.mouse.GetPos();
-			userInput.SetInput(EInputs::E_RIGHTCLICK, Vei2{ loc.second, loc.first });
-			userInput.isHoldingRight = true;
+			if (!userInput.isHoldingLeft)
+			{
+				auto loc = wnd.mouse.GetPos();
+				userInput.SetInput(EInputs::E_LEFTCLICK, Vei2{ loc.second, loc.first });
+				userInput.isHoldingLeft = true;
+			}
+			else
+			{
+			}
 		}
-		else
+		else userInput.isHoldingLeft = false;
+
+		if (wnd.mouse.RightIsPressed())
 		{
+			if (!userInput.isHoldingRight)
+			{
+				auto loc = wnd.mouse.GetPos();
+				userInput.SetInput(EInputs::E_RIGHTCLICK, Vei2{ loc.second, loc.first });
+				userInput.isHoldingRight = true;
+			}
+			else
+			{
+			}
 		}
-	}
-	else userInput.isHoldingRight = false;
+		else userInput.isHoldingRight = false;
 
-	EGameState state = board.ProcessInput(userInput);
-	switch (state)
-	{
-	case EGameState::NONE:
-	{
-		break;
-	}
-	case EGameState::PLAYING:
-	{
-		board.CheckBombsAround(Board::GetSelectedGridDim(userInput.mouseLoc));
-		break;
-	}
-	case EGameState::GAMEOVER:
-	{
-		break;
-	}
-	}
+		gameState = board.ProcessInput(userInput);
+		switch (gameState)
+		{
+		case EGameState::NONE:
+		{
+			break;
+		}
+		case EGameState::PLAYING:
+		{
+			board.CheckBombsAround(Board::GetSelectedGridDim(userInput.mouseLoc));
+			break;
+		}
+		case EGameState::GAMEOVER:
+		{
+			break;
+		}
+		}
 
-	userInput.ResetInput();
+		userInput.ResetInput();
+	}
+	else
+	{
+
+	}
 }
 
 void Game::ComposeFrame()
 {
-	board.Draw(gfx);
+	if (gameState == EGameState::MAINMENU)
+	{
+
+	}
+	else
+	{
+		board.Draw(gfx);
+	}
 }

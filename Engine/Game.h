@@ -42,6 +42,7 @@ private:
 	Graphics gfx;
 	Board board;
 	UserInput userInput;
+	EGameState gameState;
 	/********************************/
 	/*  User Variables              */
 	/********************************/
