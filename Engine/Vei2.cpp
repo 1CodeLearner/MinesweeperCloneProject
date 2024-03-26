@@ -48,6 +48,16 @@ Vei2& Vei2::operator/=( int rhs )
 	return *this = *this / rhs;
 }
 
+bool Vei2::operator==(const Vei2& other) const
+{
+	return x == other.x && y == other.y;
+}
+
+bool Vei2::operator!=(const Vei2& other) const
+{
+	return x != other.x || y != other.y;
+}
+
 float Vei2::GetLength() const
 {
 	return std::sqrt( float( GetLengthSq() ) );

@@ -132,7 +132,6 @@ void Board::CheckBombsAround(const Vei2& centerLoc)
 
 	std::vector<Vei2> emptyGridsLoc;
 	int totalCount = 0;
-	//problem: this loop doesn't check if the grid in question was already visited - infinite loop
 	for (int i = centerLoc.y - top; i <= centerLoc.y + bottom; ++i)
 	{
 		for (int j = centerLoc.x - left; j <= centerLoc.x + right; ++j)
