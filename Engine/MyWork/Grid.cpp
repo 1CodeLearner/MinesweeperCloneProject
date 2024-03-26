@@ -1,5 +1,5 @@
 #include "Grid.h"
-#include "SpriteCodex.h"
+#include "../SpriteCodex.h"
 
 Grid::Grid(Vei2 _indexLoc)
 	: indexLoc(_indexLoc)

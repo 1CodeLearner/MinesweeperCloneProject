@@ -1,8 +1,8 @@
 #pragma once
-#include "Vei2.h"
-#include "Graphics.h"
+#include "../Vei2.h"
+#include "../Graphics.h"
 #include "Grid.h"
-#include "RectI.h"
+#include "../RectI.h"
 #include "UserInput.h"
 
 class Board

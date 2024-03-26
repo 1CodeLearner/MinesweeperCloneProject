@@ -20,8 +20,8 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
-#include "Board.h"
-#include "UserInput.h"
+#include "MyWork/Board.h"
+#include "MyWork/UserInput.h"
 
 Game::Game(MainWindow& wnd)
 	:

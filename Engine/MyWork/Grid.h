@@ -1,6 +1,6 @@
 #pragma once
-#include "Vei2.h"
-#include "Graphics.h"
+#include "../Vei2.h"
+#include "../Graphics.h"
 #include "EGameState.h"
 
 class Grid

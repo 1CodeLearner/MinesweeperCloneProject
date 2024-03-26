@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <vector>
 #include "Grid.h"
-#include "SpriteCodex.h"
+#include "../SpriteCodex.h"
 
 
 Board::Board(Vei2 _startLoc, Vei2 _boardDim)

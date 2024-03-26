@@ -22,7 +22,7 @@
 
 #include "Keyboard.h"
 #include "Graphics.h"
-#include "Board.h"
+#include "MyWork/Board.h"
 
 class Game
 {

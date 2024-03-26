@@ -1,6 +1,6 @@
 #pragma once
-#include "Vei2.h"
-#include "SpriteCodex.h"
+#include "../Vei2.h"
+#include "../SpriteCodex.h"
 
 enum class EInputs
 {
