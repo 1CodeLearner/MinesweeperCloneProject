@@ -33,6 +33,7 @@ public:
 	EGameState Reveal();
 	bool HasBomb() const;
 	bool CanClick() const;
+	bool IsRevealed() const;
 private:
 
 

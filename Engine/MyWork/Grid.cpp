@@ -69,6 +69,11 @@ bool Grid::CanClick() const
 	return false;
 }
 
+bool Grid::IsRevealed() const
+{
+	return EReveal == ERevealState::REVEALED;
+}
+
 void Grid::Draw(Vei2 offset, Graphics& gfx)
 {
 	Vei2 drawLoc(SpriteCodex::tileSize * indexLoc.x,

@@ -138,6 +138,12 @@ void Board::CheckBombsAround(const Vei2& centerLoc)
 		for (int j = centerLoc.x - left; j <= centerLoc.x + right; ++j)
 		{
 			Grid* workingGrid = grids[i * boardDim.x + j];
+
+			if(workingGrid->IsRevealed()) 
+			{
+				continue;
+			}
+
 			if (!workingGrid->HasBomb())
 			{
 				emptyGridsLoc.emplace_back(j, i);
@@ -153,8 +159,8 @@ void Board::CheckBombsAround(const Vei2& centerLoc)
 		{
 			if(centerLoc == gridLoc)
 				continue;
-			CheckBombsAround(gridLoc);
 			grids[gridLoc.y * boardDim.x + gridLoc.x]->Reveal();
+			CheckBombsAround(gridLoc);
 		}
 	}
 	//Bomb exists
