@@ -46,8 +46,24 @@ void Board::Draw(Graphics& gfx)
 		for (int j = 0; j < boardDim.x; j++)
 		{
 			grids[i * boardDim.x + j]->Draw(startLoc, gfx);
+
+			for(int start = startLoc.y; start < endLoc.y; ++start)
+			{
+				gfx.PutPixel(j * SpriteCodex::tileSize + startLoc.x, start, Colors::Cyan);
+			}				
 		}
 	}
+
+	for (int i = 0; i < boardDim.y; i++)
+	{
+		for (int j = 0; j < boardDim.x; j++)
+		{
+			for(int start = j * SpriteCodex::tileSize + startLoc.x; start < endLoc.x; ++start)
+			{
+				gfx.PutPixel(start, i * SpriteCodex::tileSize + startLoc.y, Colors::Cyan);
+			}					
+		}
+	}	
 }
 
 EGameState Board::ProcessInput(const UserInput& input)
@@ -106,7 +122,7 @@ void Board::SetBombs(int nBombs)
 void Board::CheckBombsAround(const Vei2& centerLoc)
 {
 	assert(centerLoc.x >= 0 && centerLoc.x < boardDim.x &&
-	centerLoc.y >= 0 && centerLoc.y < boardDim.y);
+		centerLoc.y >= 0 && centerLoc.y < boardDim.y);
 
 	int left = 1;
 	int right = 1;
@@ -139,7 +155,7 @@ void Board::CheckBombsAround(const Vei2& centerLoc)
 		{
 			Grid* workingGrid = grids[i * boardDim.x + j];
 
-			if(workingGrid->IsRevealed()) 
+			if (workingGrid->IsRevealed())
 			{
 				continue;
 			}
@@ -157,7 +173,7 @@ void Board::CheckBombsAround(const Vei2& centerLoc)
 	{
 		for (auto gridLoc : emptyGridsLoc)
 		{
-			if(centerLoc == gridLoc)
+			if (centerLoc == gridLoc)
 				continue;
 			grids[gridLoc.y * boardDim.x + gridLoc.x]->Reveal();
 			CheckBombsAround(gridLoc);
